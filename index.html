@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="id">
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link rel="stylesheet" href="style.css">
+		<title>Registrasi Seminar OMK Melek Politik</title>
+
+	</head>
+
+	<body>
+		<div class="container-fluid help" style="padding-left: 0; padding-right:0;"id="container">
+				<div id="overlay" class="resp-canvas"></div>
+				<div class="col resp-form video-background" style="padding-top:0;" id="promo">
+					<video autoplay loop id="promoVideo" class="video-foreground">
+						<source src="media/promo.mp4" type="video/mp4">
+						Ganti browser mbokan :( iki ga support play video promone he hm
+					</video>
+				</div>
+				<div class="resp-canvas" style="display:flex;justify-content: center;align-items:center;" id="form">
+					<iframe id="iform" class="resp-ifrm" src="https://docs.google.com/forms/d/e/1FAIpQLScWKL1FaKGIJG5xxmJE-x7-vqdu3W_f_VN-PunxpAnS_iClpA/viewform" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+				</div>
+				<div class="resp-canvas" style="padding-top:100%; z-index:-10000;"></div>
+		</div>
+
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script>
+			var video = document.getElementById("promoVideo");
+			var overlay = document.getElementById("overlay")
+			var counter=30;
+			var konap=15;
+			var counterIdle;
+			$( document ).ready(function() {
+				var parent = document.getElementById('container');
+				var child = document.getElementById('form');
+				child.style.paddingRight = child.offsetWidth - child.clientWidth + "px";
+
+				function showPromo(){
+					if ($("#overlay").is(":hidden")){
+										counter=50;
+										$("#overlay").show();
+										$("#promo").fadeIn(1000);
+										video.currentTime = '0';
+										video.play();
+										$('#iform').attr( 'src', function ( i, val ) { return val; });
+									}
+				}
+
+				function hidePromo(){
+					clearTimeout(counterIdle);
+					if ($("#overlay").is(":visible")){
+								$("#promo").fadeOut(300);
+								video.pause();
+								$("#overlay").hide();
+								counterIdle= setTimeout(showPromo,(60*1000*3));
+							}
+				}
+
+				$('html, body').css({
+				    //overflow: 'hidden',
+				    height: '100%'
+				});
+
+				/*$('#form').bind('mouseover',function(){
+						console.log("mose moved. counter cleared!");
+						clearTimeout(counterIdle);
+						counterIdle= setTimeout(countdownIdle,5000);
+				});*/
+
+				$("#overlay").mousemove(function(){
+					counter--;
+					konap=0;
+					console.log("Mouse obah!");
+					if ($("#overlay").is(":visible")){
+						if (counter<=0) {
+							console.log("konter enteh!!!!");
+							clearInterval(timer);
+							hidePromo();
+						}
+						var timer= setInterval(function(){
+							konap++;
+							if (konap > 15){		
+									clearInterval(timer);
+									counter=50;
+							}
+						},100);
+					}
+				});
+			});
+			
+		</script>
+	</body>
+
+</html>
